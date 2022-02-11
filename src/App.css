@@ -1,38 +1,175 @@
-.App {
-  text-align: center;
+.main-container {
+  background-color: #F8F9FA;
+  padding: 1.5rem
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23pt;
+  padding: 1rem;
+  color: #262626;
+  border-bottom: 1px solid #E6E6E6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.dropdown-city {
+  margin-bottom: 1rem;
+  font-size: 13pt;
+  background-color: #FFFFFF;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Dropdown-control {
+  border: 1px solid #E6E6E6 !important;
+  border-radius: 5px !important;
+  padding: 1rem !important;
+  color: #262626 !important;
+}
+
+.Dropdown-arrow {
+  top: 25px !important;
+  right: 25px !important;
+}
+
+.Dropdown-menu {
+  border-color: #E6E6E6 !important;
+}
+
+.Dropdown-option {
+  padding: 1rem !important;
+}
+
+.city-grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns:  minmax(0, 611px) minmax(0, 611px) minmax(0, 611px);
+  grid-gap: 1rem;
+}
+.grid-item-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 12rem;
+  padding: 0 1rem 1rem 1rem;
+  border: 1px solid #E6E6E6;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-title-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title-right {
+  display: flex;
+}
+
+.item-title-city {
+  font-size: 19pt;
+  color: #262626;
+}
+
+.item-title-temp {
+  display: flex;
+  align-items: center;
+  font-size: 26pt;
+  color: #262626;
+}
+
+.item-description, .item-details, .item-date-time {
+  font-size: 13pt;
+  color: #70757A;
+}
+
+.item-date-day {
+  font-size: 15pt;
+  color: #262626;
+}
+
+.time-table-temp {
+  font-size: 15pt;
+  color: #262626;
+  margin-top: 0.5rem;
+}
+
+.grid-item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.weather-time-table {
+  overflow-x: scroll;
+  white-space: nowrap;
+  margin-top: 0.75rem;
+}
+
+.time-table-item {
+  display: inline-block;
+  justify-content: center;
+  border: 1px solid #E6E6E6;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  margin-right: 0.5rem;
+}
+
+.time-table-item-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.time-table-item-top, .time-table-item-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0.75rem;
 }
 
-.App-link {
-  color: #61dafb;
+.time-table-item-bottom {
+  border-top: 1px solid #E6E6E6;
+  background-color: #E5F6FD;
+  color: #70757A;
+  font-size: 10pt;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 1305px) {
+  .city-grid {
+    grid-template-columns:  minmax(0, 611px) minmax(0, 611px);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media only screen and (max-width: 675px) {
+  .city-grid {
+    grid-template-columns:  minmax(0, 611px);
+  }
+
+  .weather-time-table {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .weather-time-table::-webkit-scrollbar { 
+    display: none; 
   }
 }
