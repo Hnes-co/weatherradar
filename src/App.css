@@ -1,6 +1,11 @@
-.main-container {
+html {
   background-color: #F8F9FA;
-  padding: 1.5rem
+}
+
+.main-container {
+  padding: 1.5rem;
+  display: grid;
+  justify-content: center;
 }
 
 .header {
@@ -18,6 +23,7 @@
   margin-bottom: 1rem;
   font-size: 13pt;
   background-color: #FFFFFF;
+  min-width: 15rem;
 }
 
 .Dropdown-control {
@@ -43,9 +49,16 @@
 .city-grid {
   display: grid;
   justify-content: center;
-  grid-template-columns:  minmax(0, 611px) minmax(0, 611px) minmax(0, 611px);
+  grid-template-columns:  minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
   grid-gap: 1rem;
 }
+
+.city-grid-single {
+  display: grid;
+  grid-template-columns:  minmax(0, 1fr);
+  grid-gap: 1rem;
+}
+
 .grid-item-main {
   display: flex;
   flex-direction: column;
@@ -100,7 +113,7 @@
   margin-top: 0.5rem;
 }
 
-.grid-item-bottom {
+.grid-item-main-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,13 +130,13 @@
   text-align: right;
 }
 
-.weather-time-table {
-  overflow-x: scroll;
+.grid-item-hourly-list {
+  overflow-x: auto;
   white-space: nowrap;
   margin-top: 0.75rem;
 }
 
-.time-table-item {
+.hourly-list-item {
   display: inline-block;
   justify-content: center;
   border: 1px solid #E6E6E6;
@@ -132,44 +145,49 @@
   margin-right: 0.5rem;
 }
 
-.time-table-item-container {
+.hourly-list-item-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
 }
 
-.time-table-item-top, .time-table-item-bottom {
+.hourly-list-item-top, .hourly-list-item-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0.75rem;
 }
 
-.time-table-item-bottom {
+.hourly-list-item-bottom {
   border-top: 1px solid #E6E6E6;
   background-color: #E5F6FD;
   color: #70757A;
   font-size: 10pt;
 }
 
-@media only screen and (max-width: 1305px) {
+@media only screen and (max-width: 1250px) {
   .city-grid {
-    grid-template-columns:  minmax(0, 611px) minmax(0, 611px);
+    grid-template-columns:  minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
-@media only screen and (max-width: 675px) {
-  .city-grid {
-    grid-template-columns:  minmax(0, 611px);
+@media only screen and (max-width: 750px) {
+
+  .main-container {
+    padding: 1.5rem 0.25rem 1.5rem 0.25rem;
   }
 
-  .weather-time-table {
+  .city-grid {
+    grid-template-columns:  minmax(0, 1fr);
+  }
+
+  .grid-item-hourly-list {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
   
-  .weather-time-table::-webkit-scrollbar { 
+  .grid-item-hourly-list::-webkit-scrollbar { 
     display: none; 
   }
 }

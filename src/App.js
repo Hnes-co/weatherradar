@@ -5,7 +5,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
 import {useState} from 'react';
-import connection from './api-connection.json'
+import connection from './api-connection.json';
 
 const App = () => {
 
@@ -37,16 +37,18 @@ const App = () => {
   async function handleCitySelect(selection) {
     setWeatherData([]);
     if(selection.value === 0) {
-      let tempArray = []
+      let tempArray = [];
       for(let i = 1; i < options.length; i++) {
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${options[i].value}&appid=${connection.apiKey}&units=metric&lang=fi`);
-        tempArray.push(response.data)
+        const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${options[i].value}&appid=${connection.apiKey}&units=metric`);
+        const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${options[i].value}&appid=${connection.apiKey}&units=metric&cnt=8`);
+        tempArray.push({current: current.data, forecast: forecast.data});
       }
       setWeatherData(tempArray);
     }
     else {
-      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${selection.value}&appid=${connection.apiKey}&units=metric&lang=fi`);
-      setWeatherData([response.data]);
+      const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${selection.value}&appid=${connection.apiKey}&units=metric`);
+      const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${selection.value}&appid=${connection.apiKey}&units=metric&cnt=8`);
+      setWeatherData([{current: current.data, forecast: forecast.data}])
     }
   }
   
@@ -56,14 +58,15 @@ const App = () => {
         <label>Säätutka</label>
       </div>
       <div className="main-container">
-      <Dropdown 
-        className="dropdown-city"
-        options={options} 
-        onChange={(selected) => handleCitySelect(selected)}
-        placeholder="Valitse sijainti" />
-        <div className="city-grid">
+        <Dropdown 
+          className="dropdown-city"
+          options={options} 
+          onChange={(selected) => handleCitySelect(selected)}
+          placeholder="Valitse sijainti" 
+        />
+        <div className={weatherData.length > 1 ? "city-grid" : "city-grid-single"}>
           {weatherData.map(e => (
-            <City key={e.id} cityData={e}/>
+            <City key={e.current.id} weatherData={e}/>
           ))}
         </div>
       </div>
