@@ -48,7 +48,7 @@ const App = () => {
     else {
       const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${selection.value}&appid=${connection.apiKey}&units=metric`);
       const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${selection.value}&appid=${connection.apiKey}&units=metric&cnt=8`);
-      setWeatherData([{current: current.data, forecast: forecast.data}])
+      setWeatherData([{current: current.data, forecast: forecast.data}]);
     }
   }
   

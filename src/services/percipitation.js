@@ -18,7 +18,7 @@ export function handlePercipitation(type, data) {
         }
       }
       else {
-        return 'Percipitation (3 h): 0 mm'
+        return 'Percipitation (3 h): 0 mm';
       }
     }
     else {
@@ -39,7 +39,7 @@ export function handlePercipitation(type, data) {
         }
       }
       else {
-        return '0 mm'
+        return '0 mm';
       }
     }
   }
