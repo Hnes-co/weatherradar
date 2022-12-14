@@ -14,7 +14,8 @@ npm start
 
 ## Api keyn lisäys
 
-Luo src-kansioon 'api-connection.json' - tiedosto ja sinne sisältö:
+- Sovellus käyttää openweathermap API:a
+- Luo src-kansioon 'api-connection.json' - tiedosto ja lisää oma api key:
 ```bash
 {
     "apiKey": "apikey tähän"
