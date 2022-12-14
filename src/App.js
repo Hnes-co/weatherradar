@@ -1,77 +1,56 @@
 
 import './App.css';
-import City from './components/city'
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+import City from './components/city';
 import axios from 'axios';
-import {useState} from 'react';
+import { useRef, useState } from 'react';
 import connection from './api-connection.json';
+import searchIcon from './assets/search.svg';
 
 const App = () => {
 
-  const options = [
-    {
-      value: 0,
-      label: 'Kaikki kaupungit'
-    },
-    {
-      value: 634963,
-      label: 'Tampere'
-    },
-    {
-      value: 655195,
-      label: 'Jyväskylä'
-    },
-    {
-      value: 650225,
-      label: 'Kuopio'
-    },
-    {
-      value: 660129,
-      label: 'Espoo'
-    },
-  ];
+  const [searching, setSearching] = useState(false);
+  const weatherData = useRef();
+  const searchQuery = useRef();
+  const errorMessage = useRef("");
 
-  const [weatherData, setWeatherData] = useState([]);
-
-  async function handleCitySelect(selection) {
-    setWeatherData([]);
-    if(selection.value === 0) {
-      let tempArray = [];
-      for(let i = 1; i < options.length; i++) {
-        const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${options[i].value}&appid=${connection.apiKey}&units=metric`);
-        const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${options[i].value}&appid=${connection.apiKey}&units=metric&cnt=8`);
-        tempArray.push({current: current.data, forecast: forecast.data});
-      }
-      setWeatherData(tempArray);
+  async function handleCitySearch(e) {
+    e.preventDefault();
+    const value = searchQuery.current.value;
+    if(value === "") return;
+    weatherData.current = undefined;
+    errorMessage.current = "";
+    setSearching(true);
+    try {
+      const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${connection.apiKey}&units=metric`);
+      const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${value}&appid=${connection.apiKey}&units=metric&cnt=8`);
+      weatherData.current = { current: current.data, forecast: forecast.data };
     }
-    else {
-      const current = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${selection.value}&appid=${connection.apiKey}&units=metric`);
-      const forecast = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?id=${selection.value}&appid=${connection.apiKey}&units=metric&cnt=8`);
-      setWeatherData([{current: current.data, forecast: forecast.data}]);
+    catch(error) {
+      console.log(error);
+      errorMessage.current = "Hakuehtoa vastaavaa säätietoa ei löytynyt.";
     }
+    searchQuery.current.value = "";
+    setSearching(false);
   }
-  
+
   return (
     <div className="App">
       <div className="header">
         <label>Säätutka</label>
       </div>
       <div className="main-container">
-        <Dropdown 
-          className="dropdown-city"
-          options={options} 
-          onChange={(selected) => handleCitySelect(selected)}
-          placeholder="Valitse sijainti" 
-        />
-        <div className={weatherData.length > 1 ? "city-grid" : "city-grid-single"}>
-          {weatherData.map(e => (
-            <City key={e.current.id} weatherData={e}/>
-          ))}
-        </div>
+        <form className="search-bar" onSubmit={handleCitySearch}>
+          <label className="search-label">Syötä hakuehto: </label>
+          <div>
+            <input className="search-input" type="text" ref={searchQuery} />
+            <button className="search-button"><img src={searchIcon} alt="searchIcon" /></button>
+          </div>
+        </form>
+        <label className="errormessage">{errorMessage.current}</label>
+        <City weatherData={weatherData.current} searching={searching} />
       </div>
     </div>
   );
-}
+};
 
 export default App;

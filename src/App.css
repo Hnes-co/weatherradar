@@ -4,8 +4,9 @@ html {
 
 .main-container {
   padding: 1.5rem;
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
@@ -19,53 +20,66 @@ html {
   border-bottom: 1px solid #E6E6E6;
 }
 
-.dropdown-city {
-  margin-bottom: 1rem;
-  font-size: 13pt;
-  background-color: #FFFFFF;
-  min-width: 15rem;
-}
-
-.Dropdown-control {
-  border: 1px solid #E6E6E6 !important;
-  border-radius: 5px !important;
-  padding: 1rem !important;
-  color: #262626 !important;
-}
-
-.Dropdown-arrow {
-  top: 25px !important;
-  right: 25px !important;
-}
-
-.Dropdown-menu {
-  border-color: #E6E6E6 !important;
-}
-
-.Dropdown-option {
-  padding: 1rem !important;
-}
-
-.city-grid {
-  display: grid;
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  grid-template-columns:  minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-gap: 1rem;
+  background-color: #FFFFFF;
+  border: 2px solid #E6E6E6;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 5rem;
 }
 
-.city-grid-single {
-  display: grid;
-  grid-template-columns:  minmax(0, 1fr);
-  grid-gap: 1rem;
+.search-label {
+  margin-bottom: 0.5rem;
 }
 
-.grid-item-main {
+.search-bar div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  padding: 0;
+}
+
+.search-button:hover {
+  cursor: pointer;
+}
+
+.search-input {
+  font-size: 13pt;
+  padding: 0.2rem;
+}
+
+.search-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.errormessage {
+  color: red;
+}
+
+.city-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.city-item-main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 12rem;
   padding: 0 1rem 1rem 1rem;
-  border: 1px solid #E6E6E6;
+  border: 2px solid #E6E6E6;
   border-radius: 5px;
   background-color: #FFFFFF;
 }
@@ -97,7 +111,9 @@ html {
   color: #262626;
 }
 
-.item-description, .item-details, .item-date-time {
+.item-description,
+.item-details,
+.item-date-time {
   font-size: 13pt;
   color: #70757A;
 }
@@ -113,7 +129,7 @@ html {
   margin-top: 0.5rem;
 }
 
-.grid-item-main-bottom {
+.city-item-main-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,19 +146,18 @@ html {
   text-align: right;
 }
 
-.grid-item-hourly-list {
-  overflow-x: auto;
-  white-space: nowrap;
+.city-item-hourly-list {
   margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
 }
 
 .hourly-list-item {
   display: inline-block;
   justify-content: center;
-  border: 1px solid #E6E6E6;
+  border: 2px solid #E6E6E6;
   border-radius: 5px;
   background-color: #FFFFFF;
-  margin-right: 0.5rem;
 }
 
 .hourly-list-item-container {
@@ -152,7 +167,8 @@ html {
   justify-content: space-between;
 }
 
-.hourly-list-item-top, .hourly-list-item-bottom {
+.hourly-list-item-top,
+.hourly-list-item-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,28 +182,54 @@ html {
   font-size: 10pt;
 }
 
-@media only screen and (max-width: 1250px) {
-  .city-grid {
-    grid-template-columns:  minmax(0, 1fr) minmax(0, 1fr);
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-@media only screen and (max-width: 750px) {
-
+@media only screen and (max-width: 700px) {
   .main-container {
     padding: 1.5rem 0.25rem 1.5rem 0.25rem;
   }
 
-  .city-grid {
-    grid-template-columns:  minmax(0, 1fr);
+  .city-item-hourly-list {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .time-table-temp {
+    font-size: 13pt;
   }
 
-  .grid-item-hourly-list {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .hourly-list-item-top,
+  .hourly-list-item-bottom {
+    padding: 0.5rem;
   }
-  
-  .grid-item-hourly-list::-webkit-scrollbar { 
-    display: none; 
+
+  .item-details {
+    font-size: 12pt;
+  }
+
+  .item-date-day {
+    font-size: 14pt;
+  }
+
+  .item-date-time {
+    font-size: 12pt;
   }
 }
