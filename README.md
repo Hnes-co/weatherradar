@@ -1,6 +1,6 @@
 # Weatherradar
 
-## Asennusohjeet 
+## How to install 
 
 ```bash
 git clone https://github.com/Hnes-co/weatherradar.git
@@ -12,10 +12,10 @@ npm install
 npm start
 ```
 
-## Api keyn lisäys
+## Add your API key
 
-- Sovellus käyttää openweathermap API:a
-- Luo src-kansioon 'api-connection.json' - tiedosto ja lisää oma api key:
+- This project uses openweathermap API
+- Create 'api-connection.json' - file in /src and add your api key:
 ```bash
 {
     "apiKey": "apikey tähän"
