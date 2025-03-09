@@ -18,6 +18,6 @@ npm start
 - Create 'api-connection.json' - file in /src and add your api key:
 ```bash
 {
-    "apiKey": "apikey tähän"
+    "apiKey": "your_api_key_here"
 }
 ```
